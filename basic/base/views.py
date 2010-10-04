@@ -42,7 +42,8 @@ def firstpage(request):
     else:
         f = PersonForm(instance=p)
 
-    return render_to_response("index.html", {'form' : f, })
+    return render_to_response("index.html", {'form' : f, },
+        context_instance=RequestContext(request))
 
 def settings(request):
     return render_to_response('settings.html', {},
