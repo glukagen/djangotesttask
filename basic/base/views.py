@@ -42,7 +42,12 @@ def firstpage(request):
     else:
         f = PersonForm(instance=p)
 
-    return render_to_response("index.html", {'form' : f, },
+    labels = []
+    for field in f:
+        labels.append(field)
+    labels.reverse()
+    
+    return render_to_response("index.html", {'form' : labels, },
         context_instance=RequestContext(request))
 
 def settings(request):
