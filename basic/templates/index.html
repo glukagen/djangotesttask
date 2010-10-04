@@ -16,6 +16,9 @@
     
   </head>
   <body>
+    {% load mytag %}
+    <p>Edit user in admin part {% get_url user %}.</p>
+
     <form method="POST" action="/">{% csrf_token %}
     {% for field in form %}
         <div class="fieldWrapper">

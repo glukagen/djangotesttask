@@ -47,7 +47,7 @@ def firstpage(request):
         labels.append(field)
     labels.reverse()
     
-    return render_to_response("index.html", {'form' : labels, },
+    return render_to_response("index.html", {'form' : labels, 'user' : p},
         context_instance=RequestContext(request))
 
 def settings(request):

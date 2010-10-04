@@ -9,6 +9,9 @@ class Person(models.Model):
     surname = models.CharField(max_length=50, null=True, blank=True)
     bio = models.CharField(max_length=50)
     contacts = models.CharField(max_length=50)
+    
+    def __unicode__(self):
+        return "%s %s" % (self.name, self.surname) 
         
 class Location(models.Model):
     name = models.CharField(max_length=255)
