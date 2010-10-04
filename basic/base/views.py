@@ -30,7 +30,7 @@ def mylogin(request):
         context_instance=RequestContext(request))
 
 @csrf_protect
-def firstpage(request):
+def firstpage(request):    
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login')
 
@@ -38,11 +38,12 @@ def firstpage(request):
     if request.method == 'POST':
         f = PersonForm(request.POST, instance=p)
         if f.is_valid():
-            f.save()
+            f.save()          
     else:
         f = PersonForm(instance=p)
 
-    return render_to_response("index.html", {'form' : f, })
+    return render_to_response("index.html", {'form' : f, },
+        context_instance=RequestContext(request))
 
 def settings(request):
     return render_to_response('settings.html', {},

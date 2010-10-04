@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
-
+from django.conf import settings
+import os.path
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
@@ -17,4 +18,10 @@ urlpatterns = patterns('',
     (r'^$', 'base.views.firstpage'),
     (r'^settings$', 'base.views.settings'),
     (r'^login$', 'base.views.mylogin'),
+    (r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog'),
+    
+)
+
+urlpatterns += patterns('django.views.static',
+    (r'^media/(?P<path>.*)$', 'serve', {'document_root': settings.MEDIA_ROOT}),
 )

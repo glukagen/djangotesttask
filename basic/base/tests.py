@@ -46,7 +46,8 @@ class SimpleTest(TestCase):
             'name': 'test_name',
             'surname' : 'test_surname',
             'bio' : 'test_bio',
-            'contacts' : 'test_contacts'
+            'contacts' : 'test_contacts',
+            'date': '2010-10-10',
         }
         
         response = self.client.post('/', data)
