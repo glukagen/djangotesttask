@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     (r'^settings$', 'base.views.settings'),
     (r'^login$', 'base.views.mylogin'),
     (r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog'),
+    (r'^middleware$', 'base.views.middleware'),
     
 )
 
