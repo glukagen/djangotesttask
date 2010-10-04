@@ -84,6 +84,10 @@ class SimpleTest(TestCase):
         
         self.login()
         response = self.client.get('/login')
-        self.assertRedirects(response, '/')        
+        self.assertRedirects(response, '/')
+    
+    def test_list_middleware(self):
+        response = self.client.get('/middleware')
+        self.failUnlessEqual(response.status_code, 200)    
    
 
