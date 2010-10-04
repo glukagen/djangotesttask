@@ -7,11 +7,14 @@
     <meta name="generator" content="PyScripter">
   </head>
   <body>
-    <div>Name: {{ object.name}}</div>
-    <div>Surname: {{ object.surname}}</div>
-    <div>Bio: {{object.bio}}</div>
-    <div>Contacts: {{object.contacts}}</div>
+    <form method="POST" action="/">{% csrf_token %}
+    {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }}: {{ field }}
+        </div>
+    {% endfor %}
 
-    </ul>
+        <div><input type="submit" value="Save" name="save" /></div>
   </body>
 </html>
