@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     # (r'^admin/', include(admin.site.urls)),
     (r'^$', 'base.views.firstpage'),
     (r'^settings$', 'base.views.settings'),
+    (r'^login$', 'base.views.mylogin'),
 )

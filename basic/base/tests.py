@@ -15,12 +15,21 @@ class SimpleTest(TestCase):
         self.user = User.objects.create_user(self.username, 'tt@tt.com', self.password)        
         self.user.is_staff = True
         self.user.save()
+    
+    def login(self):
+        login = self.client.login(username=self.username, password=self.password)
+        self.failUnless(login, 'Could not log in')
         
     def test_firstpage(self):
         response = self.client.get('/')
+        self.assertRedirects(response, '/login')
+
+        self.login()
+        response = self.client.get('/')      
         self.failUnlessEqual(response.status_code, 200)
         
     def test_middleware(self):
+        self.login()
         count = Location.objects.count()
         response = self.client.get('/')
         self.failUnlessEqual(count+1, Location.objects.count())    
@@ -40,6 +49,10 @@ class SimpleTest(TestCase):
             'contacts' : 'test_contacts'
         }
         
+        response = self.client.post('/', data)
+        self.assertRedirects(response, '/login')
+        
+        self.login()
         response = self.client.post('/', data)
         self.failUnlessEqual(response.status_code, 200)
         
