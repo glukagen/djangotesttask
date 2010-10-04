@@ -1,5 +1,5 @@
 from django.test import Client, TestCase
-from base.models import Location, Person
+from base.models import Location, Person, Log
 from django.template import Context, loader
 from django.http import HttpResponse
 from django.conf import settings
@@ -19,6 +19,15 @@ class SimpleTest(TestCase):
     def login(self):
         login = self.client.login(username=self.username, password=self.password)
         self.failUnless(login, 'Could not log in')
+    
+    def test_signals(self):
+        count = Log.objects.count()
+        p = Person(name=self.username, date='2010-10-10')
+        p.save()
+        self.failUnlessEqual(count+2, Log.objects.count())
+        
+        p.delete()
+        self.failUnlessEqual(count+4, Log.objects.count())
         
     def test_firstpage(self):
         response = self.client.get('/')
@@ -72,5 +81,6 @@ class SimpleTest(TestCase):
         
         self.login()
         response = self.client.get('/login')
-        self.assertRedirects(response, '/')     
+        self.assertRedirects(response, '/')        
+   
 
