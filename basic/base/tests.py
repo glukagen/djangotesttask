@@ -10,4 +10,11 @@ class SimpleTest(TestCase):
     def test_firstpage(self):
         response = self.client.get('/')
         self.failUnlessEqual(response.status_code, 200)
+        
+    def test_middleware(self):
+        count = Location.objects.count()
+        response = self.client.get('/')
+        self.failUnlessEqual(count+1, Location.objects.count())    
+
+    
 
