@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
     (r'^$', 'base.views.firstpage'),
+    (r'^save_person$', 'base.views.save_person'),
     (r'^settings$', 'base.views.settings'),
     (r'^login$', 'base.views.mylogin'),
     (r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog'),

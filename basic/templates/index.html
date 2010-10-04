@@ -14,19 +14,24 @@
     <script type="text/javascript" src="/media/calendar.js"></script>
     <script type="text/javascript" src="/media/DateTimeShortcuts.js"></script>
     
+    <script type="text/javascript" src="/media/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/media/jquery.form.js"></script>
+    <script type="text/javascript" src="/media/main.js"></script>
   </head>
   <body>
     {% load mytag %}
     <p>Edit user in admin part {% get_url user %}.</p>
 
-    <form method="POST" action="/">{% csrf_token %}
+    <div id="form_state" class="error"></div>
+    <form id="person_form" method="POST" action="/save_person">{% csrf_token %}
     {% for field in form %}
         <div class="fieldWrapper">
-            {{ field.errors }}
+            <div id="{{ field.name }}_error" class="error"></div>
             {{ field.label_tag }}: {{ field }}
         </div>
     {% endfor %}
 
-        <div><input type="submit" value="Save" name="save" /></div>
+        <div><input type="button" value="Save" id="save_button" name="save" /></div>
+    </form>
   </body>
 </html>
