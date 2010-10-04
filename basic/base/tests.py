@@ -41,6 +41,7 @@ class SimpleTest(TestCase):
         self.login()
         count = Location.objects.count()
         response = self.client.get('/')
+        self.failUnlessEqual(response.status_code, 200)
         self.failUnlessEqual(count+1, Location.objects.count())    
 
     def test_settings(self):
@@ -59,12 +60,14 @@ class SimpleTest(TestCase):
             'date': '2010-10-10',
         }
         
-        response = self.client.post('/', data)
-        self.assertRedirects(response, '/login')
+        response = self.client.post('/save_person', data)
+        self.failUnlessEqual(response.status_code, 200)
+        self.failUnlessEqual(response.content, 'You are not authorized')
         
         self.login()
-        response = self.client.post('/', data)
+        response = self.client.post('/save_person', data)
         self.failUnlessEqual(response.status_code, 200)
+        self.failUnlessEqual(response.content, '1')
         
         p = Person.objects.get(pk=1)
         self.failUnlessEqual(data['name'], p.name)
