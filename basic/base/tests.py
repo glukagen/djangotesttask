@@ -1,9 +1,9 @@
 from django.test import Client, TestCase
 from base.models import Location, Person, Log
-from django.template import Context, loader
-from django.http import HttpResponse
+from django.template import Context, Template
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 class SimpleTest(TestCase):
@@ -87,3 +87,10 @@ class SimpleTest(TestCase):
         self.assertContains(response, 'First 10 http requests:')
         for loc in Location.objects.all()[:10]:
             self.assertContains(response, loc)
+
+    def test_tag(self):
+        response = Template("{% load mytag %}{% get_url user %}").render(
+            Context({"user": self.user}))
+        c = self.user.__class__
+        self.failUnlessEqual(response, reverse('admin:%s_%s_change' %  \
+            (c._meta.app_label, c._meta.module_name), args=[self.user.pk]))

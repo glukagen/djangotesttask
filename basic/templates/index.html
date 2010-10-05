@@ -20,7 +20,7 @@
   </head>
   <body>
     {% load mytag %}
-    <p>Edit user in admin part {% get_url user %}.</p>
+    <p>Edit user in admin part <a href="{% get_url user %}" >{{ user }}</a>.</p>
 
     <div id="form_state" class="error"></div>
     <form id="person_form" method="POST" action="/save_person">{% csrf_token %}
