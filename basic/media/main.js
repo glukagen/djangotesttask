@@ -1,5 +1,5 @@
 $(function(){
-    $('#save_button').click(function(){
+    $('#person_form').submit(function(e){        
         $('#person_form').ajaxSubmit({dataType : 'json', success: function(o) {
             $('.error').empty();
             if(o === 1)
@@ -8,12 +8,8 @@ $(function(){
                 if(typeof(o.errors) != undefined)
                     for(i in o.errors)
                         $('#' + i + '_error').html(i + ':: ' +o.errors[i][0]);    
-        }}); 
+        }});
+        
+        return false;        
     });
-    
-    $('#person_form').keypress(function(e) {
-        if(e.keyCode == 13)
-            $('#save_button').trigger('click');
-    });
-
 });
