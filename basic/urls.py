@@ -22,11 +22,12 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^$', 'base.views.firstpage'),
     (r'^save_person$', 'base.views.save_person'),
-    (r'^settings$', 'base.views.settings'),
-    (r'^login$', 'base.views.mylogin'),
+    #(r'^login$', 'base.views.mylogin'),
     (r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog'),
     (r'^middleware$', 'django.views.generic.list_detail.object_list',
         middleware_data),
+    (r'^login$', 'django.contrib.auth.views.login',
+        {'template_name': 'login.html'})
 )
 
 urlpatterns += patterns('django.views.static',

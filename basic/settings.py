@@ -93,6 +93,17 @@ FIXTURE_DIRS = (
     os.path.join(ROOT_PATH, 'fixtures'),
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "basic.base.context_processors.mysettings",
+)
+
+
+LOGIN_REDIRECT_URL = '/'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',

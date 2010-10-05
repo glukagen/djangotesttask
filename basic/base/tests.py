@@ -52,11 +52,10 @@ class SimpleTest(TestCase):
         self.failUnlessEqual(count + 1, Location.objects.count())
 
     def test_settings(self):
-        response = self.client.get('/settings')
+        self.login()
+        response = self.client.get('/')
         self.failUnlessEqual(response.status_code, 200)
-        self.failUnlessEqual(response.content,
-            loader.get_template('settings.html').render(Context(
-                {'settings': settings, })))
+        self.failUnlessEqual(response.context['settings'], settings)
 
     def test_form_person_save(self):
         data = {
@@ -81,18 +80,6 @@ class SimpleTest(TestCase):
         self.failUnlessEqual(data['surname'], p.surname)
         self.failUnlessEqual(data['bio'], p.bio)
         self.failUnlessEqual(data['contacts'], p.contacts)
-
-    def test_login(self):
-        response = self.client.get('/login')
-        self.failUnlessEqual(response.status_code, 200)
-
-        response = self.client.post('/login', {'username': self.username, \
-                                               'password': self.password})
-        self.assertRedirects(response, '/')
-
-        self.login()
-        response = self.client.get('/login')
-        self.assertRedirects(response, '/')
 
     def test_list_middleware(self):
         response = self.client.get('/middleware')
