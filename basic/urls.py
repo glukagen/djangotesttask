@@ -3,6 +3,12 @@ from django.conf import settings
 import os.path
 from django.contrib import admin
 admin.autodiscover()
+from base.models import Location
+
+middleware_data = {
+    'queryset': Location.objects.all()[:10],
+    'template_name': 'middleware.html'
+}
 
 urlpatterns = patterns('',
     # Example:
@@ -19,7 +25,8 @@ urlpatterns = patterns('',
     (r'^settings$', 'base.views.settings'),
     (r'^login$', 'base.views.mylogin'),
     (r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog'),
-    (r'^middleware$', 'base.views.middleware'),
+    (r'^middleware$', 'django.views.generic.list_detail.object_list',
+        middleware_data),
 )
 
 urlpatterns += patterns('django.views.static',

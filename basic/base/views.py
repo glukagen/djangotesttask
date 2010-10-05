@@ -66,9 +66,3 @@ def save_person(request):
 def settings(request):
     return render_to_response('settings.html', {},
         context_instance=RequestContext(request, processors=[mysettings]))
-
-
-def middleware(request):
-    return render_to_response('middleware.html',
-        {'location': Location.objects.all()[:10]},
-        context_instance=RequestContext(request))

@@ -97,3 +97,4 @@ class SimpleTest(TestCase):
     def test_list_middleware(self):
         response = self.client.get('/middleware')
         self.failUnlessEqual(response.status_code, 200)
+        self.assertContains(response, 'First 10 http requests:')
