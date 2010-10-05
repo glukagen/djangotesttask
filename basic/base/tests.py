@@ -98,3 +98,5 @@ class SimpleTest(TestCase):
         response = self.client.get('/middleware')
         self.failUnlessEqual(response.status_code, 200)
         self.assertContains(response, 'First 10 http requests:')
+        for loc in Location.objects.all()[:10]:
+            self.assertContains(response, loc)
