@@ -1,0 +1,13 @@
+[
+    {
+        "pk": 1, 
+        "model": "base.person", 
+        "fields": {
+            "date": "2010-10-10", 
+            "bio": "My bio", 
+            "surname": "Yurlov", 
+            "name": "Max", 
+            "contacts": "My contacts"
+        }
+    }    
+]
