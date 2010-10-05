@@ -27,9 +27,9 @@ class SimpleTest(TestCase):
         count = Log.objects.count()
         p = Person(name=self.username, date='2010-10-10')
         p.save()
-        self.failUnlessEqual(count + 2, Log.objects.count())
+        self.failUnlessEqual(count + 1, Log.objects.count())
         p.delete()
-        self.failUnlessEqual(count + 4, Log.objects.count())
+        self.failUnlessEqual(count + 2, Log.objects.count())
 
     def test_firstpage(self):
         response = self.client.get('/')

@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 from django.db.models.signals import post_save, pre_delete
 from django.contrib import admin
+from django.db.models.loading import get_models
 
 
 class Person(models.Model):
@@ -37,11 +38,7 @@ class PersonForm(ModelForm):
 
 
 class Log(models.Model):
-    OBJECT_CHOICES = (
-        ('p', 'Person'),
-        ('l', 'Location'),
-    )
-    object = models.CharField(max_length=1, choices=OBJECT_CHOICES)
+    object = models.CharField(max_length=50)
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     ACTION_CHOICES = (
         ('c', 'create'),
@@ -68,9 +65,7 @@ def delete_object(sender, **kwargs):
     log = Log(object_pk=o.pk, object=o._meta.object_name, action='delete')
     log.save()
 
-
-post_save.connect(save_object, sender=Person)
-pre_delete.connect(delete_object, sender=Person)
-
-post_save.connect(save_object, sender=Location)
-pre_delete.connect(delete_object, sender=Location)
+for m in get_models():
+    if m._meta.object_name not in ['Log', 'Session']:
+        post_save.connect(save_object, m, dispatch_uid=m._meta.object_name)
+        pre_delete.connect(delete_object, m, dispatch_uid=m._meta.object_name)
