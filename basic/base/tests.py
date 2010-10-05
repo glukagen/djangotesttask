@@ -42,7 +42,7 @@ class SimpleTest(TestCase):
         self.assertContains(response, p.name)
         self.assertContains(response, p.surname)
         self.assertContains(response, p.bio)
-        self.assertContains(response, p.contacts) 
+        self.assertContains(response, p.contacts)
 
     def test_middleware(self):
         self.login()
