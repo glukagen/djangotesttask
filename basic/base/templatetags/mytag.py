@@ -1,4 +1,6 @@
 from django import template
+from django.core.urlresolvers import reverse
+from django.contrib import admin
 register = template.Library()
 
 

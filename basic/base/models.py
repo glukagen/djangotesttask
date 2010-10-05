@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 from django.db.models.signals import post_save, pre_delete
+from django.contrib import admin
 
 
 class Person(models.Model):
@@ -23,6 +24,7 @@ class Location(models.Model):
         ('l', '2-choice'),
     )
     priority = models.CharField(max_length=1, choices=PRIORITY_CHOICES)
+
     def __unicode__(self):
         return self.name
 

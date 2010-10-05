@@ -1,9 +1,8 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 import os.path
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
@@ -14,7 +13,7 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
+    (r'^admin/', include(admin.site.urls)),
     (r'^$', 'base.views.firstpage'),
     (r'^save_person$', 'base.views.save_person'),
     (r'^settings$', 'base.views.settings'),
