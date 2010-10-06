@@ -4,6 +4,10 @@ from django.template import Context, Template
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.core.management import call_command
+from django.db.models.loading import get_models
+import sys
+import os
 
 
 class SimpleTest(TestCase):
@@ -94,3 +98,16 @@ class SimpleTest(TestCase):
         c = self.user.__class__
         self.failUnlessEqual(response, reverse('admin:%s_%s_change' %  \
             (c._meta.app_label, c._meta.module_name), args=[self.user.pk]))
+
+    def test_command(self):
+        sys.stdout = open('dump_mycommand.txt', 'w')
+        call_command('mycommand')
+        sys.stdout.close()
+        sys.stdout = sys.__stdout__
+
+        f = file('dump_mycommand.txt', "r")
+        self.failUnlessEqual(f.read(), "Project models:\n%s\n" % \
+         "\n".join(["%s - %s" % (m._meta.object_name, m.objects.count())
+                         for m in get_models()]))
+        f.close()
+        os.remove('dump_mycommand.txt')
