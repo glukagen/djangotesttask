@@ -106,8 +106,9 @@ class SimpleTest(TestCase):
         sys.stdout = sys.__stdout__
 
         f = file('dump_mycommand.txt', "r")
-        self.failUnlessEqual(f.read(), "Project models:\n%s\n" % \
-         "\n".join(["%s - %s" % (m._meta.object_name, m.objects.count())
-                         for m in get_models()]))
+        result = "Project models:\n%s" % \
+            "\n".join(["%s - %s" % (m._meta.object_name, m.objects.count())
+                         for m in get_models()])
+        self.failUnlessEqual(f.read().strip('\n'), result.strip('\n'))
         f.close()
         os.remove('dump_mycommand.txt')
