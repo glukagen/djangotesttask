@@ -6,7 +6,8 @@ admin.autodiscover()
 from base.models import Location
 
 middleware_data = {
-    'queryset': Location.objects.all()[:10],
+    'queryset':
+        Location.objects.filter(priority=settings.LOCATION_PRIORITY)[:10],
     'template_name': 'middleware.html'
 }
 
