@@ -5,6 +5,7 @@ from django.contrib.admin.widgets import AdminDateWidget
 from django.db.models.signals import post_save, pre_delete
 from django.contrib import admin
 from django.db.models.loading import get_models
+from base.widgets import CalendarWidget
 
 
 class Person(models.Model):
@@ -27,7 +28,7 @@ class Location(models.Model):
 
 
 class PersonForm(ModelForm):
-    date = forms.DateField(widget=AdminDateWidget)
+    date = forms.DateField(widget=CalendarWidget)
 
     class Meta:
         model = Person

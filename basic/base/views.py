@@ -8,6 +8,7 @@ import json
 
 from base.context_processors import mysettings
 from base.models import Person, PersonForm, Location
+from base.widgets import CalendarWidget
 
 
 def firstpage(request):
@@ -21,8 +22,11 @@ def firstpage(request):
         labels.append(field)
     labels.reverse()
 
-    return render_to_response("index.html", {'form': labels, 'user': p},
-        context_instance=RequestContext(request))
+    return render_to_response("index.html", {
+        'form': labels,
+        'user': p,
+        'calendar': CalendarWidget()
+        }, context_instance=RequestContext(request))
 
 
 def save_person(request):
